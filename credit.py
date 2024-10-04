@@ -1,7 +1,10 @@
-from flask import make_response
 import pandas as pd
 from sqlalchemy import create_engine,text
 from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import classification_report,accuracy_score
+from sklearn.preprocessing import StandardScaler
+import joblib
 
 DATABASE_URL = 'mysql+mysqlconnector://root:subhan971@localhost/credit_d'
 
@@ -22,15 +25,11 @@ def validation(input_data):
 
 
 
-        from sklearn.preprocessing import StandardScaler
-
         sc=StandardScaler()
+
         x_train=sc.fit_transform(x_train)
         x_test=sc.fit_transform(x_test)
 
-
-        from sklearn.neighbors import KNeighborsClassifier
-        from sklearn.metrics import classification_report,accuracy_score
 
 
         model=KNeighborsClassifier(n_neighbors=5)
@@ -41,7 +40,6 @@ def validation(input_data):
         # print(classification_report(Y_test,y_pred))
 
 
-        import joblib
 
 
         joblib.dump(model, 'model.joblib')
