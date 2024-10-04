@@ -25,20 +25,20 @@ def home():
 
         elif 'transactions' in request.form:
             transactions_input = request.form.get('transactions')
-            cleaned_data = [item for item in transactions_input if item.strip()]
+            cleaned_data = [item for item in transactions_input]
             joined_data = ''.join(cleaned_data)
             split_data = joined_data.split(',')
             
             
 
 
-            cleaned_list = [item.strip() for item in split_data if item.strip()]
-            ss=[[float(i) for i in cleaned_list]]
+            cleaned_list = [item for item in split_data]
+            flt_lis=[[float(i) for i in cleaned_list]]
 
 
-            print(type(ss))
+            print(type(flt_lis))
             
-            result = credit.validation(ss)
+            result = credit.validation(flt_lis)
             print(result)
 
     return render_template('index.html', result=result, show_transaction_input=show_transaction_input)
